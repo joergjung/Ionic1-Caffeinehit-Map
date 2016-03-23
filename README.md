@@ -1,3 +1,7 @@
+Ionic1 Test App based on:
+
+
+
 Ionic App Base
 =====================
 
