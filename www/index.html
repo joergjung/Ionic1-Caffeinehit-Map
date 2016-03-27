@@ -43,6 +43,7 @@
             <marker icon="img/me-marker.png" position="{{[ yelp.lat, yelp.lon ]}}">
             </marker>
             
+            <marker clickable="true" on-mousedown="showCafeDetail(event, cafe)" ng-repeat="cafe in yelp.results" icon="img/coffee-marker.png" position="{{[ 
                     cafe.location.coordinate.latitude,
                     cafe.location.coordinate.longitude
                 ]}}">
@@ -52,27 +53,32 @@
                 <!--tell angular not to do any data binding here-->
                 <div ng-non-bindable="">
                     <div class="contents">
+                        <img ng-src="{{ yelp.cafe.image_url }}" alt="">
                         <h4>{{ yelp.cafe.name }}</h4>
                         <p>{{ yelp.cafe.snippet_text }}</p>
                         <div class="row">
                             <div class="col">
                                 <p class="address">
                                     <i class="ion ion-ios-location"></i>
+                                    {{ yelp.cafe.location.display_address | join:&quot;, &quot; }}
                                 </p>
                             </div>
                             <div class="col">
                                 <p class="distance">
                                     <i class="ion ion-ios-navigate"></i>
+                                    {{ yelp.cafe.distance | number:&quot;0&quot; }}m
                                 </p>
                                 <p class="rating">
                                     <i class="ion ion-star"></i>
                                     {{ yelp.cafe.rating }}
+                                    &#xA0;
                                     <i class="ion ion-person"></i>
                                     {{ yelp.cafe.review_count }}
                                 </p>
                             </div>
                         </div>
 
+                        <div class="button button-small button-assertive" ng-click="getDirections(yelp.cafe)">Get Directions</div>
                     </div>
                 </div>
             </info-window>
@@ -82,10 +88,3 @@
     </ion-pane>
 </body>
 </html>
-
-<!--
-
-Template for the InfoWindow component
-
-
--->
