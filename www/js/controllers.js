@@ -3,9 +3,12 @@ var app = angular.module('caffeinehit.controllers', []);
 app.controller("YelpController", function($scope, YelpService, NgMap) {
 	$scope.yelp = YelpService;
     
-    // NgMap.getMap().then(function(map) {
-    //    $scope.map = map; 
-    // });
+    NgMap.getMap().then(function(map) {
+       $scope.map = map; 
+    });
+
+    
+
 
 	$scope.doRefresh = function() {
 		if (!$scope.yelp.isLoading) {
@@ -38,4 +41,10 @@ app.controller("YelpController", function($scope, YelpService, NgMap) {
 
 		launchnavigator.navigate(destination, source);
 	};
+    
+    $scope.showCafeDetail = function(event, cafe) {
+        $scope.yelp.cafe = cafe;
+        // marker-info is the id of the marker window in index.html
+        $scope.map.showInfoWindow.apply(this, [event, 'marker-info']);
+    };
 });
